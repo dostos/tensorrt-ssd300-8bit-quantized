@@ -77,13 +77,13 @@ logs/ssd300.fp32.b%.k256.pytorch.coco: ssd300_trt.py
 logs/ssd300.fp16.b%.k256.pytorch.coco: ssd300_trt.py
 	python $< --mode=coco --precision=fp16 --batch-dim=$* --topk=256 --runtime=pytorch --output-path=$@
 
-logs/ssd300.fp32.b%.k256.trt.coco: ssd300_trt.py models/ssd300.fp32.b$*.k256.plan
+logs/ssd300.fp32.b%.k256.trt.coco: ssd300_trt.py models/ssd300.fp32.b%.k256.plan
 	python $< --mode=coco --precision=fp32 --batch-dim=$* --topk=256 --runtime=trt --output-path=$@
 
-logs/ssd300.fp16.b%.k256.trt.coco: ssd300_trt.py models/ssd300.fp16.b$*.k256.plan
+logs/ssd300.fp16.b%.k256.trt.coco: ssd300_trt.py models/ssd300.fp16.b%.k256.plan
 	python $< --mode=coco --precision=fp16 --batch-dim=$* --topk=256 --runtime=trt --output-path=$@
 
-logs/ssd300.int8.b%.k256.trt.coco: ssd300_trt.py models/ssd300.int8.b$*.k256.plan
+logs/ssd300.int8.b%.k256.trt.coco: ssd300_trt.py models/ssd300.int8.b%.k256.plan
 	python $< --mode=coco --precision=int8 --batch-dim=$* --topk=256 --runtime=trt --output-path=$@
 
 coco: $(foreach batch_size, $(BATCH_SIZES), logs/ssd300.fp32.b$(batch_size).k256.pytorch.coco logs/ssd300.fp16.b$(batch_size).k256.pytorch.coco logs/ssd300.fp32.b$(batch_size).k256.trt.coco logs/ssd300.fp16.b$(batch_size).k256.trt.coco logs/ssd300.int8.b$(batch_size).k256.trt.coco)
@@ -96,13 +96,13 @@ logs/ssd300.fp32.b%.k256.pytorch.bench: ssd300_trt.py
 logs/ssd300.fp16.b%.k256.pytorch.bench: ssd300_trt.py
 	python $< --mode=bench --precision=fp16 --batch-dim=$* --topk=256 --runtime=pytorch --output-path=$@
 
-logs/ssd300.fp32.b%.k256.trt.bench: ssd300_trt.py models/ssd300.fp32.b$*.k256.plan
+logs/ssd300.fp32.b%.k256.trt.bench: ssd300_trt.py models/ssd300.fp32.b%.k256.plan
 	python $< --mode=bench --precision=fp32 --batch-dim=$* --topk=256 --runtime=trt --output-path=$@
 
-logs/ssd300.fp16.b%.k256.trt.bench: ssd300_trt.py models/ssd300.fp16.b$*.k256.plan
+logs/ssd300.fp16.b%.k256.trt.bench: ssd300_trt.py models/ssd300.fp16.b%.k256.plan
 	python $< --mode=bench --precision=fp16 --batch-dim=$* --topk=256 --runtime=trt --output-path=$@
 
-logs/ssd300.int8.b%.k256.trt.bench: ssd300_trt.py models/ssd300.int8.b$*.k256.plan
+logs/ssd300.int8.b%.k256.trt.bench: ssd300_trt.py models/ssd300.int8.b%.k256.plan
 	python $< --mode=bench --precision=int8 --batch-dim=$* --topk=256 --runtime=trt --output-path=$@
 
 bench: $(foreach batch_size, $(BATCH_SIZES), logs/ssd300.fp32.b$(batch_size).k256.pytorch.bench logs/ssd300.fp16.b$(batch_size).k256.pytorch.bench logs/ssd300.fp32.b$(batch_size).k256.trt.bench logs/ssd300.fp16.b$(batch_size).k256.trt.bench logs/ssd300.int8.b$(batch_size).k256.trt.bench)
